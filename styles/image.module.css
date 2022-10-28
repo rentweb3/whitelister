@@ -1,0 +1,47 @@
+
+.main{
+    background-color:black;
+    height:100%;
+   
+}
+.collection_list{
+    display:grid;
+    list-style: none;
+    grid-template-columns: auto auto auto auto;
+}
+.image{
+width:300px;
+height:300px;
+object-fit: contain;
+}
+
+.image__container{
+    margin-top:25px;
+
+}
+.image:hover{
+    cursor: pointer;
+    transform:scale(1.05) ;
+    
+}
+.image{
+    transition:transform 300ms ease-in-out;
+}
+@media only screen and (max-width:1500px) {
+    .collection_list{
+        grid-template-columns: auto auto auto  ;
+    }
+    
+}
+@media only screen and (max-width:1000px) {
+    .collection_list{
+        grid-template-columns: auto auto ;
+    }
+    
+}
+@media only screen and (max-width:600px) {
+    .collection_list{
+        grid-template-columns: auto  ;
+    }
+    
+}

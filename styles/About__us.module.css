@@ -1,0 +1,27 @@
+.main__container{
+    background-color: rgb(86, 132, 231);
+    display:flex;
+    height:100vh;
+}
+.container__1{
+    /* flex:0.6; */
+    background-color: rgb(215, 221, 205);
+    height:100vh;
+    position:relative;
+    left:850px;
+    width:35%;
+    
+}
+.container__2{
+    /* flex:0.3; */
+    /* height:90vh; */
+    background-color:  rgb(215, 221, 205);
+    height:60vh;
+    position:absolute;
+    right:400px;
+    top:120px;
+    width:150%;
+    box-shadow: 10px 1px 10px rgb(185, 187, 169);
+
+
+}
