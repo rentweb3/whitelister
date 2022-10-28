@@ -78,7 +78,7 @@ export default function Home() {
           fontWeight: "700",
 
         }}>
-          "Sorry ,There are no Deployments to Show"
+          Sorry ,There are no Deployments to Show
         </div>
 
           : <>  {currentpage === "about" && (
