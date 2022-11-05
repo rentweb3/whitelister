@@ -78,7 +78,7 @@ export default function Home() {
           fontWeight: "700",
 
         }}>
-          Sorry ,There are no Deployments to Show
+          Nifter.vercel.app is not rented for any sale yet
         </div>
 
           : <>  {currentpage === "about" && (
