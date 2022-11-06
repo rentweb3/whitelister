@@ -38,6 +38,11 @@ export default function Home() {
     console.log("connected address is ", _address)
 
     let _currentDeployment = await websiteRentContract.websiteToDeployment(myUrlAddress);
+    let rentTime = await websiteRentContract.rentTime(myUrlAddress);
+    let jsEpochRentTime=parseInt(rentTime*1000);
+    if(jsEpochRentTime<=((new Date().getTime()) ){
+       _currentDeployment=null;
+       }
     console.log('deployment', _currentDeployment);
     setCurrentDeployment(_currentDeployment);
 
