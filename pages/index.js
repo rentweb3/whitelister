@@ -40,7 +40,8 @@ export default function Home() {
     let _currentDeployment = await websiteRentContract.websiteToDeployment(myUrlAddress);
     let rentTime = await websiteRentContract.rentTime(myUrlAddress);
     let jsEpochRentTime=parseInt(rentTime*1000);
-    if(jsEpochRentTime<=((new Date().getTime()) ){
+    let currentTime=(new Date()).getTime();
+    if(jsEpochRentTime<=currentTime){
        _currentDeployment=null;
        }
     console.log('deployment', _currentDeployment);
