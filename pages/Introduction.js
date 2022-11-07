@@ -21,12 +21,13 @@ export default function Introduction(props) {
           </div>
         </div>
       </div>
-      <div
-        className={styles.container2}
-        style={{
-          backgroundImage: `url(${props.image})`,
-        }}
-      ></div>
+     <div className={styles.container2}>
+        <img
+          className={styles.image}
+          src="https://the-media-leader.com/wp-content/uploads/2022/07/adobestock-metaverse-resized.png"
+          alt="bordape"
+        />
+      </div>
     </div>
   );
 }
