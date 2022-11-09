@@ -15,16 +15,29 @@ height:300px;
 object-fit: contain;
 }
 
+.nft__container{
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .image__container{
     margin-top:25px;
 
 }
+
 .image:hover{
     cursor: pointer;
     transform:scale(1.05) ;
     
 }
 .image{
+    width: 100%;
+    height: 200px;
+    border-radius: 30px;
+
     transition:transform 300ms ease-in-out;
 }
 @media only screen and (max-width:1500px) {

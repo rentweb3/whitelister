@@ -3,6 +3,7 @@ import navstyle from "../styles/Navbar.module.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Navbar(props) {
+  let brandName=props.brandName;
   const homepage = () => {
     console.log("call home page");
     props.func("home");
@@ -17,10 +18,10 @@ export default function Navbar(props) {
   };
   return (
     <>
-      <div className={navstyle.maincontainer}>
+      <div  className={navstyle.maincontainer}>
         <div className={navstyle.container1}>
           <img src={props.image} alt="icon" className={navstyle.image} />
-          <p>{props.companyname}</p>
+          <p>{brandName}</p>
         </div>
         <div className={navstyle.container2}>
           <button className={navstyle.button} onClick={homepage}>
@@ -34,7 +35,7 @@ export default function Navbar(props) {
           </button>
         </div>
         <div className={navstyle.container3}>
-          <ConnectButton />
+          <ConnectButton chainStatus={false} label={"Connect"}   showBalance={false}/>
         </div>
       </div>
     </>

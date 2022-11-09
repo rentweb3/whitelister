@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/Introduction.module.css";
 
 export default function Introduction(props) {
+  let image = props.image;
   const getwhitelisted = () => {
     console.log("whitelisting page");
   };
@@ -21,10 +22,14 @@ export default function Introduction(props) {
           </div>
         </div>
       </div>
-     <div className={styles.container2}>
+      <div className={styles.container2}>
         <img
           className={styles.image}
-          src="https://the-media-leader.com/wp-content/uploads/2022/07/adobestock-metaverse-resized.png"
+          src={
+            image
+              ? image
+              : "https://the-media-leader.com/wp-content/uploads/2022/07/adobestock-metaverse-resized.png"
+          }
           alt="bordape"
         />
       </div>

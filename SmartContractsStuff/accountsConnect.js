@@ -4,14 +4,14 @@
 import { BigNumber, Contract, ethers, providers, utils } from "ethers";
 
 export const connectWallet = async () => {
-    try {
-        // Get the provider from web3Modal, which in our case is MetaMask
-        // When used for the first time, it prompts the user to connect their wallet
-        await getProviderOrSigner();
-        //          setWalletConnected(true);
-    } catch (err) {
-        console.error(err);
-    }
+  try {
+    // Get the provider from web3Modal, which in our case is MetaMask
+    // When used for the first time, it prompts the user to connect their wallet
+    await getProviderOrSigner();
+    //          setWalletConnected(true);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 /**
@@ -26,21 +26,25 @@ export const connectWallet = async () => {
  *
 =       */
 export const getProviderOrSigner = async (web3ModalRef, needSigner = false) => {
-    // Connect to Metamask
-    // Since we store `web3Modal` as a reference, we need to access the `current` value to get access to the underlying object
+  // Connect to Metamask
+  // Since we store `web3Modal` as a reference, we need to access the `current` value to get access to the underlying object
+  try {
+    console.log("web3 modal is ",web3ModalRef)
     const provider = await web3ModalRef.current.connect();
     const web3Provider = new providers.Web3Provider(provider);
 
     // If user is not connected to the Mumbai network, let them know and throw an error
     const { chainId } = await web3Provider.getNetwork();
     if (chainId !== 5) {
-        window.alert("Please Change the network to Goerli");
-
+      window.alert("Please Change the network to Goerli");
     }
 
     if (needSigner) {
-        const signer = web3Provider.getSigner();
-        return signer;
+      const signer = web3Provider.getSigner();
+      return signer;
     }
     return web3Provider;
+  } catch (e) {
+    console.log("User is not connected");
+  }
 };
