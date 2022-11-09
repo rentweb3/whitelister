@@ -10,7 +10,8 @@
   top: 2vh;
   left: 0;
   /* transition: 300ms all ease-in-out; */
-  animation: fadeInDisplay 300ms;
+  animation: fadeInDisplay 350ms;
+
 }
 .nft__information__content {
   border: 20px;

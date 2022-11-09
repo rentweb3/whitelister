@@ -92,7 +92,10 @@ export default function Home() {
   // console.log("NFTs are ", NFTs);
 
   return (
-    <>
+    <div style={{
+      height:"100vh",
+      background:"black"
+    }}>
       <Navbar
         image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr7ZZQwTn5ClB5v8hOJTehixgGs5csluH-8WIUQEB2rdEaFFzXWOoXY4oOGK09US2CAdY&usqp=CAU"
         brandName={brandName ? brandName : "Nifter"}
@@ -157,6 +160,6 @@ export default function Home() {
           )}
         </>
       )}
-    </>
+    </div>
   );
 }
