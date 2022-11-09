@@ -13,7 +13,7 @@ import {
 import { getTokensMetaData } from "../SmartContractsStuff/IpfsInteraction";
 import ShowNFTs from "./ShowNFTs";
 
-let myUrlAddress = "https://nifter.vercel.app";
+let myUrlAddress = "https://whitelister.vercel.app";
 let websiteType = "sale";
 let Blockchain = "ethereum";
 let NetworkChain = "goerli";
@@ -98,7 +98,7 @@ export default function Home() {
     }}>
       <Navbar
         image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr7ZZQwTn5ClB5v8hOJTehixgGs5csluH-8WIUQEB2rdEaFFzXWOoXY4oOGK09US2CAdY&usqp=CAU"
-        brandName={brandName ? brandName : "Nifter"}
+        brandName={brandName ? brandName : "whitelister"}
         func={setCurrentPage}
       />
       {currentDeployment == null ? (
@@ -119,7 +119,7 @@ export default function Home() {
             ? "Loading Hosted Collection's details"
             : brandName
             ? brandName + " NFTs are coming.."
-            : "Nifter is not rented for any sale yet"}
+            : "Whitelister is not rented for any sale yet"}
         </div>
       ) : (
         <>
