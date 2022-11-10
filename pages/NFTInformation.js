@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  getSaleContract,
+  getWhitelistContract,
   getTokenOwner,
   mint,
 } from "../SmartContractsStuff/contractInteraction";
@@ -13,12 +13,14 @@ let NetworkChain = "goerli";
 
 function NFTInformation(props) {
   const { isConnected, isDisconnected, address } = useAccount();
-  const [owner, setOwner] = useState(null);
-  const [mintingStatus, setMintingStatus] = useState("mint now");
+  const [userIsWhitelisted, setUserIsWhitelisted] = useState(false);
+  const [whitelistingStatus, setwhitelistingStatus] = useState("whitelist me");
 
   let nft = props.NFT;
   let toggler = props.toggler;
   let contractAddress = props.contractAddress;
+  let whitelistStatus = props.whitelistStatus;
+  let isWhitelisted=props.isWhitelisted;
   let nftPrice = parseInt(nft?.price);
   let nftOwner = nft.owner;
   if (Blockchain == "ethereum") {
@@ -30,12 +32,20 @@ function NFTInformation(props) {
   }
 
   let web3ModalRef = useRef();
-  async function mintNFT(tokenId) {
-    if (owner == address) {
-      alert("You already own it ..");
+  async function whitelistMe(tokenId) {
+    if (userIsWhitelisted) {
+      alert("You already Whitelisted ..");
       return null;
+
     }
-    alert("Stated Minting ...");
+
+    if(!whitelistStatus){
+      alert("Whitelist has ended already  ..");
+      return null;
+      
+    }
+    
+    alert("Stated whitelisting ...");
     if (web3ModalRef.current === undefined) {
       web3ModalRef.current = new Web3Modal({
         network: NetworkChain,
@@ -43,32 +53,33 @@ function NFTInformation(props) {
         disableInjectedProvider: false,
       });
     }
-
-    console.log({
-      Blockchain,
-      NetworkChain,
-      web3ModalRef,
-      contractAddress,
-      tokenId,
-      price: nftPrice,
-    });
-    setMintingStatus("Minting..");
+    setwhitelistingStatus("whitelisting..");
     setTimeout(() => {
-      setMintingStatus("Please Wait..");
+      setwhitelistingStatus("Please Wait..");
     }, 4000);
-    await mint(
+    let whitelistContract = await getWhitelistContract(
       Blockchain,
       NetworkChain,
       web3ModalRef,
-      contractAddress,
-      tokenId,
-      nft?.price,
-      successCallback
+      contractAddress
     );
+    // console.log("sale contract is ", whitelistContract);
+    try {
+      let tx = await whitelistContract.addAddressToWhitelist({
+        value: 0,
+      });
+
+      setwhitelistingStatus("Wait for confirmation..");
+      await tx.wait();
+      successCallback();
+    } catch (e) {
+      if (e.toString().includes("has ended"))
+        setwhitelistingStatus("Whitelisting ended!");
+    }
   }
   async function successCallback() {
-    setMintingStatus("Purchased Successfully 🥳");
-    setOwner(address);
+    setwhitelistingStatus("Whitelisted Successfully 🥳");
+    setUserIsWhitelisted(true);
   }
   function getCurrency() {
     return Blockchain == "ethereum"
@@ -89,7 +100,7 @@ function NFTInformation(props) {
   }
 
   useEffect(() => {
-    setOwner(nftOwner);
+    setUserIsWhitelisted(isWhitelisted);
   }, []);
 
   return (
@@ -105,25 +116,23 @@ function NFTInformation(props) {
         </p>
         <p className={styles.nft__information__content__price}>
           <p className={styles.property}>price</p>
-          <p className={styles.value}>
-            {nftPrice} {getCurrency()}
-          </p>
+          <p className={styles.value}>{"coming soon"}</p>
         </p>
         <p className={styles.nft__information__content__owner}>
           <p className={styles.property}>owner</p>
-          <p className={styles.value}>
-            {getMinimalAddress(nftOwner) == null
-              ? "No Owner"
-              : getMinimalAddress(nftOwner)}
-          </p>
+          <p className={styles.value}>No Owner</p>
         </p>
 
         <button
           className={styles.nft__information__content__button}
-          onClick={() => mintNFT(nft.id)}
-          disabled={mintingStatus !== "mint now"}
+          onClick={() => whitelistMe(nft.id)}
+          disabled={whitelistingStatus !== "whitelist me" && !whitelistStatus}
         >
-          {owner == address ? "you own it " : mintingStatus}
+          {userIsWhitelisted
+            ? "You are Whitelisted "
+            : !whitelistStatus
+            ? "Whitelisting has Ended !"
+            : whitelistingStatus}
         </button>
         <button
           className={styles.nft__information__content__button}

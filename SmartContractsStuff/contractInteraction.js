@@ -1,7 +1,7 @@
 import { Contract } from "ethers/lib";
 import { getProviderOrSigner } from "./accountsConnect";
 import {
-  saleContractABI,
+  whitelistContractABI,
   WebsiteRentABI,
   WebsiteRentAddress,
 } from "./contractMetdadata";
@@ -25,7 +25,7 @@ export const getWebsiteRentContract = async (
     //
   }
 };
-export const getSaleContract = async (
+export const getWhitelistContract = async (
   Blockchain,
   NetworkChain,
   web3ModalRef,
@@ -33,56 +33,14 @@ export const getSaleContract = async (
 ) => {
   if (Blockchain == "ethereum") {
     let signer = await getProviderOrSigner(web3ModalRef, true);
-    const saleContract = new Contract(contractAddress, saleContractABI, signer);
-    return saleContract;
+    const whitelistContract = new Contract(contractAddress, whitelistContractABI, signer);
+    return whitelistContract;
   } else if (Blockchain == "tron") {
   } else {
     //
   }
 };
-export async function mint(
-  Blockchain,
-  NetworkChain,
-  web3ModalRef,
-  contractAddress,
-  tokenId,
-  price,
-  successCallback
-) {
-  let contract = await getSaleContract(
-    Blockchain,
-    NetworkChain,
-    web3ModalRef,
-    contractAddress
-  );
-  console.log("sale contract to mint from ", contract);
-  if (Blockchain == "tron") {
-    await contract.purchaseThisToken(tokenId).send({
-      feeLimit: 100000000,
-      callValue: price,
-      shouldPollResponse: true,
-    });
-  } else if (Blockchain == "ethereum") {
-    let tx = await contract.purchaseThisToken(tokenId, {
-      value: price,
-    });
-    await tx.wait();
-    successCallback();
-    
-  } else {
-    // dont support
-  }
-}
-export async function getTokenOwner(Blockchain, contract) {
-  if (Blockchain == "tron") {
-    let owner = await contract.ownerOf(tokenId).call();
-    return owner;
-  } else if (Blockchain == "ethereum") {
-    let owner = await contract.ownerOf(tokenId);
-    return owner;
-  }
-  return "0x0000000";
-}
+
 
 export async function getCollectionURIs(
   Blockchain,
@@ -95,18 +53,16 @@ export async function getCollectionURIs(
   numNFTsToFetch = parseInt(_totalSupply);
   let baseURIs = [];
 
-  //   console.log("Obtaining ", numNFTsToFetch, " NFTs");
-  for (let index = 0; index < numNFTsToFetch; index++) {
-    await contract
-      .tokenURI(index + 1)
-      .then((item) => {
-        baseURIs.push(item);
-      })
-      .catch((e) => {
-        console.log("error in fetching tokenURI of ", index + 1);
-      });
+  console.log("Obtaining ", numNFTsToFetch, " NFTs");
+  let baseUri=await contract.baseURI();
+  if(baseUri.toString().endsWith("/")){
+    baseUri=baseUri.slice(0,-1);
   }
-  //   console.log("base uris are ", baseURIs);
+  for (let index = 0; index < numNFTsToFetch; index++) {
+      let tokenuri=baseUri+`/${index+1}.json`;    
+      baseURIs.push(tokenuri);
+  }
+    // console.log("base uris are ", baseURIs);
   return baseURIs;
 }
 function noDeployment(adr) {
@@ -119,6 +75,8 @@ function noDeployment(adr) {
 
   return false;
 }
+
+
 
 export async function getCurrentDeployment(
   Blockchain,

@@ -15,8 +15,8 @@
 }
 .nft__information__content {
   border: 20px;
-  height: 70vh;
-  width: 30vw;
+  height: 75vh;
+  width: 40vw;
   box-shadow: 2px 2px 2px 2px white;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@
 }
 
 .nft__information__content__image {
-  width: 15vw;
+  width: 20vw;
   border-radius: 20px;
 }
 .nft__information__content__name {
@@ -66,8 +66,8 @@
   background: transparent;
   color: white;
 
-  padding: 10px;
-  width: 20vw;
+  padding: 20px;
+  width: 25vw;
   border-radius: 10px;
   font-size: 1em;
   font-weight: 700;
@@ -82,13 +82,13 @@
 .property{
     margin-right: 20px;
     text-decoration: underline;
-    width: 80px;
+    width: 5vw;
     
 }
 .value{
     margin-left: 20px;
     font-weight: 600;
-    width: 150px;
+    width: 12vw;
 
 }
 
@@ -99,4 +99,22 @@
   100% {
     opacity: 1;
   }
+}
+
+@media only screen and (max-width:800px) {
+  .nft__information__content {
+  width: 80vw;
+  }
+  .property{
+    width: 10vw;
+    
+}
+.value{
+width: 20vw;
+}
+
+.nft__information__content__button {
+  width: 50vw;
+  font-size: 14px;
+}
 }

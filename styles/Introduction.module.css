@@ -10,7 +10,7 @@
   
 }
 .heading {
-  font-size: 2em;
+  font-size: 1.8em;
   margin-left: 45px;
   color: white;
 }
@@ -89,13 +89,14 @@
     font-size: 15px;
   }
   .intro {
-    font-size: 15px;
+    font-size: 18px;
   }
   .button {
     font-size: 12px;
     padding: 5px;
   }
   .container2 {
+    margin-top: 5vh;
     flex: 0.4;
     height: 55vh;
   }

@@ -6,6 +6,10 @@ function embedGateway(_hash) {
   if (_hash.toString().startsWith("ipfs://")) {
     hash = _hash.slice(8);
   }
+  if (_hash.toString().startsWith("//ipfs/")) {
+    hash = _hash.slice(7,);
+  }
+
   if (_hash.toString().startsWith("ipfs:/")) {
     hash = _hash.slice(6);
   }
@@ -39,20 +43,11 @@ export const getTokensMetaData = async (tokenURIs, setter, contract) => {
   let metadataArray = [];
   tokenURIs?.map(async (item, index) => {
     await getTokenMetadata(item, index + 1).then(async (metadata) => {
-      //   console.log("metadata is ", metadata);
-      let _metadata = metadata;
-      let tokenIsMinted = await contract.isTokenIdExists(metadata.id);
-      _metadata.price = await contract.getNFTPrice(metadata.id);
-      if (tokenIsMinted) {
-        _metadata.owner = await contract.ownerOf(metadata.id);
-        metadataArray.push(_metadata);
-      } else {
-        _metadata.owner = "0x0000000";
-        metadataArray.push(_metadata);
-      }
+        
+      metadataArray.push(metadata);
     });
     if (index + 1 == tokenURIs.length) {
-      //   console.log("metadata array is ", metadataArray);
+        console.log("metadata array is ", metadataArray);
       if (setter) {
         setter(metadataArray);
       }

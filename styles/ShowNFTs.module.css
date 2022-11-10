@@ -2,7 +2,17 @@
 .main{
     background-color:black;
     height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
    
+}
+.status{
+    text-transform: capitalize;
+    font-size: 2em;
+    margin-bottom: 5hv;
+    color: white;
 }
 .collection_list{
     display:grid;
@@ -22,9 +32,10 @@ object-fit: contain;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 .image__container{
-    margin-top:25px;
+    margin:25px;
 
 }
 
