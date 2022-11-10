@@ -79,7 +79,6 @@ export default function Home() {
 
   async function init() {
     if (!address) {
-      alert("Connect Wallet First");
       return null;
     }
     let deploymentAddress = await fetchDeployment();
@@ -134,7 +133,9 @@ export default function Home() {
             fontWeight: "700",
           }}
         >
-          {loading && !brandName
+          {!isConnected
+            ? "Connect Wallet First"
+            : loading && !brandName
             ? "Loading Hosted Collection's details"
             : brandName
             ? brandName + " NFTs are coming.."
