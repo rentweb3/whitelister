@@ -14,7 +14,7 @@ import { getTokensMetaData } from "../SmartContractsStuff/IpfsInteraction";
 import ShowNFTs from "./ShowNFTs";
 import { SiApostrophe } from "react-icons/si";
 
-let myUrlAddress = "https://thewhitelister.vercel.app/";
+let myUrlAddress = "https://thewhitelister.vercel.app";
 //
 let websiteType = "whitelist";
 let Blockchain = "ethereum";
